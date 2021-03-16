@@ -17,8 +17,9 @@ dev:
 play:
 	npm run dev:play
 
+# 加上 && npm run build:file 命令会对应 package.json scripts build:file 栏自动执行里面的文件 
 new:
-	node build/bin/new.js $(filter-out $@,$(MAKECMDGOALS))
+	node build/bin/new.js $(filter-out $@,$(MAKECMDGOALS)) && npm run build:file
 
 new-lang:
 	node build/bin/new-lang.js $(filter-out $@,$(MAKECMDGOALS))

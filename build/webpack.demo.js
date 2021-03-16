@@ -74,10 +74,10 @@ const webpackConfig = {
         ]
       },
       {
-        test: /\.md$/,
+        test: /\.md$/, // 1. 解析 .md 文件
         use: [
           {
-            loader: 'vue-loader',
+            loader: 'vue-loader', // 3. 处理完毕后 交给 vue-loader
             options: {
               compilerOptions: {
                 preserveWhitespace: false
@@ -85,7 +85,7 @@ const webpackConfig = {
             }
           },
           {
-            loader: path.resolve(__dirname, './md-loader/index.js')
+            loader: path.resolve(__dirname, './md-loader/index.js') // 2. 交给 md-loader 处理
           }
         ]
       },

@@ -5,6 +5,7 @@
 var fs = require('fs');
 var path = require('path');
 var Components = require('../../components.json');
+// 通过 packages/theme-chalk/gulpfile.js 打包的, 支持单独发包
 var themes = [
   'theme-chalk'
 ];

@@ -8,7 +8,7 @@
 var postcss = require('postcss');
 var fs = require('fs');
 var path = require('path');
-// icon.scss 文件内容
+// 读取 icon.scss 文件内容
 var fontFile = fs.readFileSync(path.resolve(__dirname, '../../packages/theme-chalk/src/icon.scss'), 'utf8');
 // 得到样式节点
 var nodes = postcss.parse(fontFile).nodes;
@@ -16,9 +16,11 @@ var classList = [];
 
 // 遍历所有的样式节点
 nodes.forEach((node) => {
-  // 从选择器中匹配出 icon 名称，比如 el-icon-add，匹配得到 add
+  // 每个节点的选择器
   var selector = node.selector || '';
+  // 使用正则表达式进行匹配
   var reg = new RegExp(/\.el-icon-([^:]+):before/);
+  // 从选择器中匹配出 icon 名称  比如 el-icon-add  匹配得到 add
   var arr = selector.match(reg);
 
   // 将 icon 名称写入数组,
@@ -27,7 +29,8 @@ nodes.forEach((node) => {
   }
 });
 
-classList.reverse(); // 希望按 css 文件顺序倒序排列
+// 希望按 css 文件顺序倒序排列
+classList.reverse();
 
 // 将 icon 名组成的数组写入 /examples/icon.json 文件
 fs.writeFile(path.resolve(__dirname, '../../examples/icon.json'), JSON.stringify(classList), () => {});

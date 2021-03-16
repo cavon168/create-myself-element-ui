@@ -7,9 +7,9 @@ const path = require('path');
 // 监听目录
 const templates = path.resolve(process.cwd(), './examples/pages/template');
 
-// 负责监听的库
+// 负责监听的库(工具)
 const chokidar = require('chokidar');
-// 监听模板目录
+// 监听 template 目录
 let watcher = chokidar.watch([templates]);
 
 // 当目录下的文件发生改变时，自动执行 npm run i18n

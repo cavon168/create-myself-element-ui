@@ -28,8 +28,11 @@ if (componentFile.some(item => item.lang === lang)) {
   console.error(`${lang} already exists.`);
   process.exit(1);
 }
+// 取的 examples/i18n/component.json 里面 'en-US' 的内容，得到新语言配置，默认配置为英文
 let componentNew = Object.assign({}, componentFile.filter(item => item.lang === 'en-US')[0], { lang });
+// 添加新语言
 componentFile.push(componentNew);
+// 将被改动后的 componentFile 写回到 component.json 文件
 fileSave(path.join(__dirname, '../../examples/i18n/component.json'))
   .write(JSON.stringify(componentFile, null, '  '), 'utf8')
   .end('\n');
@@ -57,7 +60,7 @@ fileSave(path.join(__dirname, '../../examples/nav.config.json'))
   .write(JSON.stringify(navFile, null, '  '), 'utf8')
   .end('\n');
 
-// docs 下新建对应文件夹
+// docs 下新建对应文件夹 默认提供 4 种语言
 try {
   fs.statSync(path.resolve(__dirname, `../../examples/docs/${ lang }`));
 } catch (e) {

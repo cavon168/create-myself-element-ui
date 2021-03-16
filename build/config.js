@@ -6,8 +6,11 @@ var fs = require('fs');
 var nodeExternals = require('webpack-node-externals');
 var Components = require('../components.json');
 
+// 工具目录
 var utilsList = fs.readdirSync(path.resolve(__dirname, '../src/utils'));
+// 全局混入
 var mixinsList = fs.readdirSync(path.resolve(__dirname, '../src/mixins'));
+// 动画相关
 var transitionList = fs.readdirSync(path.resolve(__dirname, '../src/transitions'));
 /**
  * externals 解决组件依赖其它组件并按需引入时代码冗余的问题
@@ -22,19 +25,26 @@ var transitionList = fs.readdirSync(path.resolve(__dirname, '../src/transitions'
  */
 var externals = {};
 
+// 遍历所有组件
 Object.keys(Components).forEach(function(key) {
+  // 比如 import Button form 'element-ui' 按需加载后变成 require('element-ui/lib/button') 形式
   externals[`element-ui/packages/${key}`] = `element-ui/lib/${key}`;
 });
 
+// 其 4 种都是利用模块化开发思想，将组件库的公共部分做抽离，而且也按照其功能分成几个大块，按需引入，如果全部加载则明显的产生冗余代码
+// 翻译 国际化的
 externals['element-ui/src/locale'] = 'element-ui/lib/locale';
+// 工具的
 utilsList.forEach(function(file) {
   file = path.basename(file, '.js');
   externals[`element-ui/src/utils/${file}`] = `element-ui/lib/utils/${file}`;
 });
+// 全局混入的
 mixinsList.forEach(function(file) {
   file = path.basename(file, '.js');
   externals[`element-ui/src/mixins/${file}`] = `element-ui/lib/mixins/${file}`;
 });
+// 动画相关
 transitionList.forEach(function(file) {
   file = path.basename(file, '.js');
   externals[`element-ui/src/transitions/${file}`] = `element-ui/lib/transitions/${file}`;

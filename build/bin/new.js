@@ -14,6 +14,7 @@
  *      在 /packages/theme-chalk/src/index.scss 文件中自动引入该组件的样式文件
  *      将类型声明文件在 /types/element-ui.d.ts 中自动引入
  *  总之，该脚本的存在，让你只需专注于编写你的组件代码，其它的一概不用管
+ * 缺点：开发一定要去 改 Makefile.js 文件，在 new 一栏后面添加一个 && npm run build:file 命令，将组件去重新生成组件库的入口 src/index.js，加完会在官网直接看到
  */
 
 console.log();
@@ -29,6 +30,7 @@ if (!process.argv[2]) {
 const path = require('path');
 const fs = require('fs');
 const fileSave = require('file-save');
+// 连字符转大驼峰
 const uppercamelcase = require('uppercamelcase');
 // 组件名称，比如 city
 const componentname = process.argv[2];

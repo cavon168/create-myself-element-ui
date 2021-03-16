@@ -11,7 +11,7 @@ set -e
 git checkout master
 git merge dev
 
-# 版本选择 cli
+# 版本选择 cli  会根据 package.json 文件的版本信息去设置下一个版本的信息
 VERSION=`npx select-version-cli`
 
 # 是否确认当前版本信息
